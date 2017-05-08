@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
     public float speed = 6f;    // Floating point variable to store the player's movement speed.
     public string up, down, left, right;
     public int facing = 0;
+    public bool ableToTP = true;
 
     const int leftF = 0, upF = 1, rightF = 2, downF = 3;
 
