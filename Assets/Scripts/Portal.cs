@@ -6,10 +6,10 @@ public class Portal : MonoBehaviour {
     public GameObject desPortal;
     public bool isTPing = false;
 
-    IEnumerator Teleport(GameObject playerObject, Player playerScript)
+    IEnumerator Teleport(GameObject playerObject, Character playerScript)
     {
         playerScript.enabled = false;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
         playerObject.transform.position = desPortal.transform.position;
         playerScript.enabled = true;
     }
@@ -17,7 +17,7 @@ public class Portal : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         GameObject player = other.gameObject;
-        Player playerScript = player.GetComponent<Player>();
+        Character playerScript = player.GetComponent<Character>();
         if (!playerScript.ableToTP || isTPing)
             return;
 
@@ -28,16 +28,16 @@ public class Portal : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Player playerScript = other.GetComponent<Player>();
+        Character playerScript = other.GetComponent<Character>();
         if (isTPing)
         {
             playerScript.ableToTP = false;
-            Debug.Log("Set ableToTP: false");
+            //Debug.Log("Set ableToTP: false");
         }
         else
         {
             playerScript.ableToTP = true;
-            Debug.Log("Set ableToTP: true");
+            //Debug.Log("Set ableToTP: true");
         }
         isTPing = false;
     }
