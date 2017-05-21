@@ -2,24 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class grenade : MonoBehaviour {
+public class Grenade : MonoBehaviour {
 	const int maxGrenades = 1;
 	int count = 0;
 	GameObject []grenades =new GameObject[maxGrenades];
-
-	public string throwButton;
+	public Player p;
+	string skill;
 	public GameObject grenadeObject;
 	public GameObject explodeOject;
-	public float throwDistance = 2f;
+	private bool skillIsOnCooldown = false;
+	private float cooldownTimer;
+	float cooldown;
+	bool isDown = false;
 	// Use this for initialization
 	void Start () {
-		
+		cooldown = p.cooldown;
+		skill = p.skill;
+		cooldownTimer = cooldown;
+			
 	}
-	
+	int num =0;
 	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (throwButton)) {
-			throwGrenade ();
+	void FixedUpdate () {
+		if (Input.GetButtonDown (skill) && !p.isHoldingWater) {
+			Debug.Log (skillIsOnCooldown+" "+num);
+
+			if (!skillIsOnCooldown ) {
+				
+				Debug.Log ("throw " + num);
+				throwGrenade();
+
+				if (num > 0) {
+					skillIsOnCooldown = true;
+					isDown = false;
+					num = 0;
+				}
+				else
+				num++;
+			}
+			// trigger skill
+
+
+		} else if (skillIsOnCooldown && !p.isHoldingWater) {
+			cooldownTimer -= Time.deltaTime;
+			if (cooldownTimer < 0) {
+				cooldownTimer = cooldown;
+				skillIsOnCooldown = false;
+			}
 		}
 	}
 
@@ -43,7 +72,5 @@ public class grenade : MonoBehaviour {
 
 		}
 			
-
-
 	}
 }

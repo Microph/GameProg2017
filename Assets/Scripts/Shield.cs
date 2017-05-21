@@ -28,9 +28,10 @@ public class Shield : MonoBehaviour {
 				Destroy (shieldObj);
 			}
 		}
-		else if (Input.GetButtonDown (player.skill) && !player.isOnCooldown()) {
+		else if (player.triggerNormalSkill) {
 			raiseShield	();
 			isRaising = true;
+            player.triggerNormalSkill = false;
 		}
 	}
 
