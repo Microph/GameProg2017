@@ -5,9 +5,6 @@ using UnityEngine;
 public class Enemy : Character
 {
     public string xAxis, yAxis;
-
-    Vector3 movement;
-    Rigidbody2D playerRigidbody;
     
 
 	bool isTrigger = false;
