@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySkill : MonoBehaviour {
-    const int leftF = 0, upF = 1, rightF = 2, downF = 3;
-    
-    public string skill;
+public class EnemyDash : MonoBehaviour {
+    public static bool isDashing = false;
+    public string dash;
     public float dashSpeed = 2.5f;
     public float dashDuration = 1f;
 
+    const int leftF = 0, upF = 1, rightF = 2, downF = 3;
     Enemy enemyScript;
     Transform body;
     Vector3 movement;
     bool istouchingWall = false;
-    bool isDashing = false;
     float startDashTime = 0f;
 
     void Awake()
@@ -24,7 +23,7 @@ public class EnemySkill : MonoBehaviour {
 	
 	void Update ()
     {
-        if (!isDashing && Input.GetKey(skill) && istouchingWall)
+        if (!isDashing && !EnemyAttack.isAttacking && Input.GetKey(dash) && istouchingWall)
         {
             beginDash();
         }
@@ -34,7 +33,7 @@ public class EnemySkill : MonoBehaviour {
             body.Translate(movement * Time.deltaTime);
         }
 
-        else
+        else if(isDashing)
         {
             finishDash();
         }

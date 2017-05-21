@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
+    public bool isDown = false;
     public string up, down, left, right;
-  
-    Vector3 movement;
-    Rigidbody2D playerRigidbody;
 
     void FixedUpdate()
     {
