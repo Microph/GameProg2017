@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
     public float speed = 6f;    // Floating point variable to store the player's movement speed.
-    public string up, down, left, right;
+    public string up, down, left, right, skill;
     public int facing = 0;
     public bool ableToTP = true;
+	public float cooldown;
+	public RawImage icon;
+	public Text cooldownText;
+	private bool skillIsOnCooldown = false;
+	private float cooldownTimer;
 
     const int leftF = 0, upF = 1, rightF = 2, downF = 3;
 
@@ -18,6 +24,7 @@ public class Player : MonoBehaviour {
     void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+		cooldownTimer = cooldown;
     }
 
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
@@ -46,7 +53,27 @@ public class Player : MonoBehaviour {
         }
 
         Move(h, v);
+		if (Input.GetButtonDown (skill) && !skillIsOnCooldown) {
+			// trigger skill
+			skillIsOnCooldown = true;
+			icon.color = new Color (255, 0, 0);
+		} else if (skillIsOnCooldown) {
+			cooldownTimer -= Time.deltaTime;
+			if (cooldownTimer < 0) {
+				cooldownTimer = cooldown;
+				skillIsOnCooldown = false;
+				icon.color = new Color (0, 255, 0);
+			}
+		}
     }
+
+	public bool isOnCooldown() {
+		return skillIsOnCooldown;
+	}
+
+	void Update(){
+		cooldownText.text = cooldownTimer.ToString ();
+	}
 
     void Move(float h, float v)
     {
