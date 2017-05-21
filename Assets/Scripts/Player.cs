@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
-
+	public bool isDown= false;
     public float speed = 6f;    // Floating point variable to store the player's movement speed.
     public string up, down, left, right, skill;
     public int facing = 0;
