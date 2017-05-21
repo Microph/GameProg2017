@@ -2,29 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySkill : MonoBehaviour {
-    const int leftF = 0, upF = 1, rightF = 2, downF = 3;
-    
-    public string skill;
+public class EnemyDash : MonoBehaviour {
+    public static bool isDashing = false;
+    public string dash;
     public float dashSpeed = 2.5f;
     public float dashDuration = 1f;
 
-    Player playerScript;
+    const int leftF = 0, upF = 1, rightF = 2, downF = 3;
+    Enemy enemyScript;
     Transform body;
     Vector3 movement;
     bool istouchingWall = false;
-    bool isDashing = false;
     float startDashTime = 0f;
 
     void Awake()
     {
-        playerScript = GetComponent<Player>();
+        enemyScript = GetComponent<Enemy>();
         body = GetComponent<Transform>();
     }
 	
 	void Update ()
     {
-        if (!isDashing && Input.GetKey(skill) && istouchingWall)
+        if (!isDashing && !EnemyAttack.isAttacking && Input.GetKey(dash) && istouchingWall)
         {
             beginDash();
         }
@@ -34,7 +33,7 @@ public class EnemySkill : MonoBehaviour {
             body.Translate(movement * Time.deltaTime);
         }
 
-        else
+        else if(isDashing)
         {
             finishDash();
         }
@@ -56,13 +55,13 @@ public class EnemySkill : MonoBehaviour {
 
     void beginDash()
     {
-        playerScript.enabled = false;
+        enemyScript.enabled = false;
         isDashing = true;
         GetComponent<CircleCollider2D>().isTrigger = true;
         startDashTime = Time.time;
 
         //set dash vector to the facing direction
-        switch (playerScript.facing)
+        switch (enemyScript.facing)
         {
             case leftF: movement.Set(-dashSpeed, 0, 0); break;
             case upF: movement.Set(0, dashSpeed, 0); break;
@@ -74,7 +73,7 @@ public class EnemySkill : MonoBehaviour {
 
     void finishDash()
     {
-        playerScript.enabled = true;
+        enemyScript.enabled = true;
         isDashing = false;
         GetComponent<CircleCollider2D>().isTrigger = false;
     }

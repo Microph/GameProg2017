@@ -26,8 +26,7 @@ public class Player : MonoBehaviour {
         playerRigidbody = GetComponent<Rigidbody2D>();
 		cooldownTimer = cooldown;
     }
-
-    // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
+  
     void FixedUpdate()
     {
         float h = 0, v = 0;
@@ -65,8 +64,8 @@ public class Player : MonoBehaviour {
 				icon.color = new Color (0, 255, 0);
 			}
 		}
-    }
-
+  }
+  
 	public bool isOnCooldown() {
 		return skillIsOnCooldown;
 	}
@@ -86,5 +85,4 @@ public class Player : MonoBehaviour {
         // Move the player to it's current position plus the movement.
         playerRigidbody.MovePosition(transform.position + movement);
     }
-
 }

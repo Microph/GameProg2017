@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Carry : MonoBehaviour {
+public class Marker : MonoBehaviour {
     const int maxTraps = 1;
 
     public Transform player;
