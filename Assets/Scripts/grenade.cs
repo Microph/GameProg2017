@@ -11,7 +11,6 @@ public class grenade : MonoBehaviour {
 	public GameObject grenadeObject;
 	public GameObject explodeOject;
 	public float throwDistance = 2f;
-	bool isThrow = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -34,6 +33,7 @@ public class grenade : MonoBehaviour {
 
 		if (grenades [count] != null) {
 			var item = (GameObject)Instantiate (explodeOject,grenades[count].transform.position,Quaternion.identity);
+			explodeOject.SetActive(true);
 			Destroy (item,0.5f);
 
 		} else {
