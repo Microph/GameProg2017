@@ -9,12 +9,13 @@ public class UIVictory : MonoBehaviour {
 	public Text victoryText;
 	private float Fade = 0f;
 	private float delayCount = 0f;
-	private bool phase;
+	private bool phase = false;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        screenFader.color = new Color(0f, 0f, 0f, 0f);
+        victoryText.color = new Color(1f, 1f, 1f, 0f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,7 +28,7 @@ public class UIVictory : MonoBehaviour {
 				Application.Quit ();
 		} else if (phase) {
 			delayCount += Time.deltaTime;
-		} else if (!phase && true) {
+		} else if (!phase && EnemyDead.enemyIsDead) {
 			phase = true;
 		}
 	}

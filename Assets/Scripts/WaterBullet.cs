@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterBullet : MonoBehaviour {
+public class WaterBullet : IsTPable {
     const int leftF = 0, upF = 1, rightF = 2, downF = 3;
     public float bulletSpeed = 12f;
     public int direction = -1;
-    public bool isAbleToTP = true;
+    
+    void Start()
+    {
+        Destroy(gameObject, 5.0f);
+    }
 
 	void Update() {
 		if(direction == leftF)
@@ -29,14 +33,9 @@ public class WaterBullet : MonoBehaviour {
     
     void OnCollisionEnter2D(Collision2D coll)
     {
-        Debug.Log("sdffa");
-        Destroy(gameObject, 0.0f);
-        if (coll.collider.tag != "player" && coll.collider.tag != "portal")
-            Destroy(GetComponent<GameObject>(), 0.5f);
+        Debug.Log(coll.collider.tag + "hit with bullet");
+        if (coll.collider.tag == "enemy")
+            Destroy(gameObject, 0.0f);
     }
 
-    void OncollisionExit2D()
-    {
-        isAbleToTP = true;
-    }
 }

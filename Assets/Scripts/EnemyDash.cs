@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDash : MonoBehaviour {
     public static bool isDashing = false;
     public string dash;
-    public float dashSpeed = 2.5f;
+    public float dashSpeed = 2.0f;
     public float dashDuration = 1f;
 
     const int leftF = 0, upF = 1, rightF = 2, downF = 3;
@@ -14,6 +14,7 @@ public class EnemyDash : MonoBehaviour {
     Vector3 movement;
     bool istouchingWall = false;
     float startDashTime = 0f;
+    bool isTouchingCheat = false;
 
     void Awake()
     {
@@ -21,7 +22,7 @@ public class EnemyDash : MonoBehaviour {
         body = GetComponent<Transform>();
     }
 	
-	void Update ()
+	void FixedUpdate ()
     {
         if (!isDashing && !EnemyAttack.isAttacking && Input.GetKey(dash) && istouchingWall)
         {
@@ -42,15 +43,20 @@ public class EnemyDash : MonoBehaviour {
 
     void OnCollisionEnter2D (Collision2D coll)
     {
-        if (coll.collider.tag == "Wall")
-        {
+        if (coll.collider.tag == "preventCheat")
+            isTouchingCheat = true;
+
+        else if (coll.collider.tag == "Wall" && !isTouchingCheat)
             istouchingWall = true;
-        }
     }
 
     void OnCollisionExit2D(Collision2D coll)
     {
-        istouchingWall = false;
+        if (coll.collider.tag == "preventCheat")
+            isTouchingCheat = false;
+
+        if (coll.collider.tag == "Wall")
+            istouchingWall = false;
     }
 
     void beginDash()
@@ -76,5 +82,6 @@ public class EnemyDash : MonoBehaviour {
         enemyScript.enabled = true;
         isDashing = false;
         GetComponent<CircleCollider2D>().isTrigger = false;
+        istouchingWall = false;
     }
 }

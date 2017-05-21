@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grenade : MonoBehaviour {
+public class Grenade : IsTPable {
 	const int maxGrenades = 1;
 	int count = 0;
-	GameObject []grenades =new GameObject[maxGrenades];
+	GameObject []grenades = new GameObject[maxGrenades];
 	public Player p;
 	string skill;
 	public GameObject grenadeObject;
@@ -13,7 +13,6 @@ public class Grenade : MonoBehaviour {
 	private bool skillIsOnCooldown = false;
 	private float cooldownTimer;
 	float cooldown;
-	bool isDown = false;
 	// Use this for initialization
 	void Start () {
 		cooldown = p.cooldown;
@@ -34,7 +33,6 @@ public class Grenade : MonoBehaviour {
 
 				if (num > 0) {
 					skillIsOnCooldown = true;
-					isDown = false;
 					num = 0;
 				}
 				else
@@ -43,7 +41,7 @@ public class Grenade : MonoBehaviour {
 			// trigger skill
 
 
-		} else if (skillIsOnCooldown && !p.isHoldingWater) {
+		} else if (skillIsOnCooldown) {
 			cooldownTimer -= Time.deltaTime;
 			if (cooldownTimer < 0) {
 				cooldownTimer = cooldown;

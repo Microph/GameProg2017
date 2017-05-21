@@ -9,16 +9,16 @@ public class Portal : MonoBehaviour {
     IEnumerator Teleport(GameObject playerObject, Character playerScript)
     {
         playerScript.enabled = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.0f);
         playerObject.transform.position = desPortal.transform.position;
         playerScript.enabled = true;
     }
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "bullet")
+        if(other.tag == "bullet" || other.tag == "grenade")
         {
-            WaterBullet bullet = other.GetComponent<WaterBullet>();
+            IsTPable bullet = other.GetComponent<IsTPable>();
             if (bullet.isAbleToTP)
             {
                 bullet.isAbleToTP = false;
@@ -26,19 +26,19 @@ public class Portal : MonoBehaviour {
             }
             return;
         }
-        GameObject player = other.gameObject;
-        Character playerScript = player.GetComponent<Character>();
-        if (!playerScript.ableToTP || isTPing)
+        GameObject character = other.gameObject;
+        Character characterScript = character.GetComponent<Character>();
+        if (!characterScript.ableToTP || isTPing)
             return;
 
         isTPing = true;
-        playerScript.ableToTP = false;
-        StartCoroutine(Teleport(player, playerScript));
+        characterScript.ableToTP = false;
+        StartCoroutine(Teleport(character, characterScript));
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "bullet")
+        if (other.tag == "bullet" || other.tag == "grenade")
             return;
 
         Character playerScript = other.GetComponent<Character>();

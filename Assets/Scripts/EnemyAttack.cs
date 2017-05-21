@@ -22,7 +22,7 @@ public class EnemyAttack : MonoBehaviour {
         finishAttack();
 
         enemyScript.enabled = false;
-        yield return new WaitForSeconds(1.5f); //brief self stun
+        yield return new WaitForSeconds(1.25f); //brief self stun
         enemyScript.enabled = true;
     }
 
@@ -40,7 +40,6 @@ public class EnemyAttack : MonoBehaviour {
     {
         foreach(Player attackingTarget in AttackRange.inRangeTargets)
         {
-            attackingTarget.enabled = false;
             attackingTarget.isDown = true;
         }
         isAttacking = false;

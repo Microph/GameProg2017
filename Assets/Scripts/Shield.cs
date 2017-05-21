@@ -20,7 +20,8 @@ public class Shield : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (isRaising) {
-			appearTimer -= Time.deltaTime;
+            player.isDown = false;
+            appearTimer -= Time.deltaTime;
 			shieldMove ();
 			if (appearTimer < 0) {
 				isRaising = false;

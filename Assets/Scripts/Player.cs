@@ -30,25 +30,41 @@ public class Player : Character {
     void FixedUpdate()
     {
         float h = 0, v = 0;
+        if (isDown)
+        {
+            spriteRenderer.color = Color.grey;
+            return;
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
+
         if (Input.GetButton(up))
         {
             v++;
             facing = upF;
+            spriteRenderer.sprite = sprites[0];
         }
         if(Input.GetButton(down))
         {
             v--;
             facing = downF;
+            spriteRenderer.sprite = sprites[1];
         }
         if (Input.GetButton(right))
         { 
             h++;
             facing = rightF;
+            spriteRenderer.sprite = sprites[2];
+            spriteRenderer.flipX = true;
         }
         if (Input.GetButton(left))
         {
             h--;
             facing = leftF;
+            spriteRenderer.sprite = sprites[2];
+            spriteRenderer.flipX = false;
         }
 
         Move(h, v);

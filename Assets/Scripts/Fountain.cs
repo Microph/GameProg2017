@@ -32,6 +32,9 @@ public class Fountain : MonoBehaviour {
     {
         if(coll.collider.tag == "player" && !isOnCooldown)
         {
+            if (coll.gameObject.GetComponent<Player>().isDown)
+                return;
+
             fountainAnimator.SetTrigger("getWater");
             currentCooldownTime = fountainCooldownDuration;
             isOnCooldown = true;
