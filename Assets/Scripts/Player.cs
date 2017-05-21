@@ -16,8 +16,8 @@ public class Player : Character {
     Player player;
 
     //water skill section
-    public GameObject waterBullet;
-
+    public WaterBullet waterBullet;
+    public float dis = 1f;
 
     // Use this for initialization
     protected override void Awake()
@@ -83,30 +83,32 @@ public class Player : Character {
 
     void shootWater()
     {
-        GameObject waterBulletObject = Instantiate(waterBullet, new Vector2(player.transform.position.x, player.transform.position.y - 1), Quaternion.identity) as GameObject;
-        WaterBullet waterBulletInstance = waterBulletObject.GetComponent<WaterBullet>();
+        WaterBullet waterBulletObject = Instantiate(waterBullet, new Vector2(player.transform.position.x, player.transform.position.y - 1), Quaternion.identity);
         if (player.facing == 0)
         { //left
             facing = player.facing;
             waterBulletObject.transform.Rotate(Vector3.forward * -90);
-            waterBulletInstance.direction = leftF; 
+            waterBulletObject.direction = leftF;
+            waterBulletObject.transform.position = waterBulletObject.transform.position + new Vector3(-dis, dis, 0);
         }
         else if (player.facing == 1)
         { //up
             facing = player.facing;
             waterBulletObject.transform.Rotate(Vector3.forward * -180);
-            waterBulletInstance.direction = upF;
+            waterBulletObject.direction = upF;
+            waterBulletObject.transform.position = waterBulletObject.transform.position + new Vector3(0, dis*2f, 0);
         }
         else if (player.facing == 2)
         { //right
             facing = player.facing;
             waterBulletObject.transform.Rotate(Vector3.forward * -270);
-            waterBulletInstance.direction = rightF;
+            waterBulletObject.direction = rightF;
+            waterBulletObject.transform.position = waterBulletObject.transform.position + new Vector3(dis, dis, 0);
         }
         else if (player.facing == 3)
         { //down
             facing = player.facing;
-            waterBulletInstance.direction = downF;
+            waterBulletObject.direction = downF;
         }
     }
 }

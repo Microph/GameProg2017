@@ -16,6 +16,16 @@ public class Portal : MonoBehaviour {
     
     void OnTriggerEnter2D(Collider2D other)
     {
+        if(other.tag == "bullet")
+        {
+            WaterBullet bullet = other.GetComponent<WaterBullet>();
+            if (bullet.isAbleToTP)
+            {
+                bullet.isAbleToTP = false;
+                other.transform.position = desPortal.transform.position;
+            }
+            return;
+        }
         GameObject player = other.gameObject;
         Character playerScript = player.GetComponent<Character>();
         if (!playerScript.ableToTP || isTPing)
@@ -28,6 +38,9 @@ public class Portal : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (other.tag == "bullet")
+            return;
+
         Character playerScript = other.GetComponent<Character>();
         if (isTPing)
         {
