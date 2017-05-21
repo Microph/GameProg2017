@@ -5,7 +5,11 @@ using UnityEngine;
 public class Enemy : Character
 {
     public string xAxis, yAxis;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     void FixedUpdate()
     {
         float h = 0, v = 0;

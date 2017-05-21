@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     Vector3 movement;
     Rigidbody2D playerRigidbody;
 
-    public void Awake()
+    protected virtual void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
     }

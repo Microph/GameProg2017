@@ -35,7 +35,7 @@ public class Smash : MonoBehaviour
         {
             isCollideDetector = false;
         }
-        if (coll.collider.tag == "player")
+        if (coll.collider.tag == "smashingWall")
         {
             isCollideSmashingWall = false;
         }
