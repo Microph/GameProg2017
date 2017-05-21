@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dash : MonoBehaviour {
+    public AudioClip skillSound;
+    public AudioSource sfxSource;
     public static bool isDashing = false;
     public float dashSpeed = 6.0f;
     public float dashDuration = 0.2f;
@@ -23,6 +25,7 @@ public class Dash : MonoBehaviour {
     {
         if (!isDashing && player.triggerNormalSkill)
         {
+            sfxSource.PlayOneShot(skillSound);
             player.triggerNormalSkill = false;
             beginDash();
         }

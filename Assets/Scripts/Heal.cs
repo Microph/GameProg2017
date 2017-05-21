@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Heal : MonoBehaviour {
     public Collider2D healRange;
+    public AudioClip skillSound;
+    public AudioSource sfxSource;
 
     Player player;
 
@@ -26,6 +28,7 @@ public class Heal : MonoBehaviour {
     {
         if (player.triggerNormalSkill)
         {
+            sfxSource.PlayOneShot(skillSound);
             heroesNeverDie();
             player.triggerNormalSkill = false;
         }

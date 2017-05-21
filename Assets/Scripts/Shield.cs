@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shield : MonoBehaviour {
-
-	public Player player;
+    public AudioClip skillSound;
+    public AudioSource sfxSource;
+    public Player player;
 	public float appearTime;
 	private bool isRaising = false;
 	private float appearTimer;
@@ -30,7 +31,8 @@ public class Shield : MonoBehaviour {
 			}
 		}
 		else if (player.triggerNormalSkill) {
-			raiseShield	();
+            sfxSource.PlayOneShot(skillSound);
+            raiseShield	();
 			isRaising = true;
             player.triggerNormalSkill = false;
 		}

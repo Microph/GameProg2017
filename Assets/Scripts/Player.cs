@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : Character {
+    public AudioClip waterSound;
+    public AudioSource sfxSource;
     public bool isDown = false;
     public bool isHoldingWater = false;
     public string up, down, left, right, skill;
@@ -99,6 +101,7 @@ public class Player : Character {
 
     void shootWater()
     {
+        sfxSource.PlayOneShot(waterSound);
         WaterBullet waterBulletObject = Instantiate(waterBullet, new Vector2(player.transform.position.x, player.transform.position.y - 1), Quaternion.identity);
         if (player.facing == 0)
         { //left

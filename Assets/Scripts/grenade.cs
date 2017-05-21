@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grenade : IsTPable {
-	const int maxGrenades = 1;
+    public AudioClip skillSound;
+    public AudioClip bombSound;
+    public AudioSource sfxSource;
+    const int maxGrenades = 1;
 	int count = 0;
 	GameObject []grenades = new GameObject[maxGrenades];
 	public Player p;
@@ -29,7 +32,7 @@ public class Grenade : IsTPable {
 			if (!skillIsOnCooldown ) {
 				
 				Debug.Log ("throw " + num);
-				throwGrenade();
+                throwGrenade();
 
 				if (num > 0) {
 					skillIsOnCooldown = true;
@@ -59,12 +62,14 @@ public class Grenade : IsTPable {
 
 
 		if (grenades [count] != null) {
-			var item = (GameObject)Instantiate (explodeOject,grenades[count].transform.position,Quaternion.identity);
+            sfxSource.PlayOneShot(bombSound); 
+            var item = (GameObject)Instantiate (explodeOject,grenades[count].transform.position,Quaternion.identity);
 			explodeOject.SetActive(true);
 			Destroy (item,0.5f);
 
 		} else {
-			var item = (GameObject) Instantiate(grenadeObject, transform.position, Quaternion.identity);
+            sfxSource.PlayOneShot(skillSound);
+            var item = (GameObject) Instantiate(grenadeObject, transform.position, Quaternion.identity);
 			grenades[count] = item;
 			count++;
 

@@ -6,12 +6,16 @@ public class EnemyAttack : MonoBehaviour {
     public static bool isAttacking = false;
     public string attack;
     public Collider2D attackRange;
+    bool skillIsOnCooldown = false;
+    private float cooldownTimer;
+    public float cooldown;
 
     Enemy enemyScript;
 
     void Awake()
     {
         enemyScript = GetComponent<Enemy>();
+        cooldownTimer = cooldown;
     }
 
     IEnumerator Attacking(Enemy enemyScript)
@@ -28,9 +32,20 @@ public class EnemyAttack : MonoBehaviour {
 
     void Update()
     {
-        if (!isAttacking && Input.GetKey(attack) && !EnemyDash.isDashing)
+        if (!isAttacking && Input.GetKey(attack) && !EnemyDash.isDashing && !skillIsOnCooldown)
         {
+            skillIsOnCooldown = true;
             StartCoroutine(Attacking(enemyScript));
+        }
+
+        else if (skillIsOnCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0)
+            {
+                cooldownTimer = cooldown;
+                skillIsOnCooldown = false;
+            }
         }
     }
 

@@ -7,6 +7,9 @@ public class EnemyDash : MonoBehaviour {
     public string dash;
     public float dashSpeed = 2.0f;
     public float dashDuration = 1f;
+    bool skillIsOnCooldown = false;
+    private float cooldownTimer;
+    public float cooldown;
 
     const int leftF = 0, upF = 1, rightF = 2, downF = 3;
     Enemy enemyScript;
@@ -24,8 +27,9 @@ public class EnemyDash : MonoBehaviour {
 	
 	void FixedUpdate ()
     {
-        if (!isDashing && !EnemyAttack.isAttacking && Input.GetKey(dash) && istouchingWall)
+        if (!isDashing && !EnemyAttack.isAttacking && Input.GetKey(dash) && istouchingWall && !skillIsOnCooldown)
         {
+            skillIsOnCooldown = true;
             beginDash();
         }
 
@@ -39,7 +43,20 @@ public class EnemyDash : MonoBehaviour {
             finishDash();
         }
 
-	}
+    }
+
+    void Update()
+    {
+        if (skillIsOnCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0)
+            {
+                cooldownTimer = cooldown;
+                skillIsOnCooldown = false;
+            }
+        }
+    }
 
     void OnCollisionEnter2D (Collision2D coll)
     {
