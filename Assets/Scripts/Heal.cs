@@ -41,6 +41,7 @@ public class Heal : MonoBehaviour {
         foreach (Player healingTarget in HealRange.inRangeTargets)
         {
             healingTarget.isDown = false;
+			PlayerAllDead.count--;
         }
     }
 

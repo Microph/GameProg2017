@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyAttack : MonoBehaviour {
-    public RawImage icon;
-    public Text cooldownText;
     public static bool isAttacking = false;
     public string attack;
     public Collider2D attackRange;
@@ -37,7 +35,6 @@ public class EnemyAttack : MonoBehaviour {
     {
         if (skillIsOnCooldown)
             cooldownTimer -= Time.deltaTime;
-        cooldownText.text = cooldownTimer.ToString("F2");
 
         if (!isAttacking && Input.GetKey(attack) && !EnemyDash.isDashing && !skillIsOnCooldown)
         {
@@ -62,7 +59,11 @@ public class EnemyAttack : MonoBehaviour {
     {
         foreach(Player attackingTarget in AttackRange.inRangeTargets)
         {
-            attackingTarget.isDown = true;
+			if (!attackingTarget.isDown) {
+				attackingTarget.isDown = true;
+				PlayerAllDead.count++;
+				Debug.Log (PlayerAllDead.count);
+			}
         }
         isAttacking = false;
     }
