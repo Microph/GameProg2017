@@ -82,7 +82,6 @@ public class Enemy : Character
             else
             {
                 EnemyDead.enemyIsDead = true;
-                spriteRenderer.color = Color.black;
                 GetComponent<Enemy>().enabled = false;
                 GetComponent<EnemyAttack>().enabled = false;
                 GetComponent<EnemyDash>().enabled = false;

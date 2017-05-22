@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAttack : MonoBehaviour {
+    public RawImage icon;
+    public Text cooldownText;
     public static bool isAttacking = false;
     public string attack;
     public Collider2D attackRange;
@@ -32,6 +35,10 @@ public class EnemyAttack : MonoBehaviour {
 
     void Update()
     {
+        if (skillIsOnCooldown)
+            cooldownTimer -= Time.deltaTime;
+        cooldownText.text = cooldownTimer.ToString("F2");
+
         if (!isAttacking && Input.GetKey(attack) && !EnemyDash.isDashing && !skillIsOnCooldown)
         {
             skillIsOnCooldown = true;

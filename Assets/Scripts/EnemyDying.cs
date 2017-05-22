@@ -14,7 +14,7 @@ public class EnemyDying : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (true) {
+		if (EnemyDead.enemyIsDead) {
 			enemy.GetComponent<SpriteRenderer> ().color = new Color(1f,1f,1f,fadeOut -= .2f * Time.deltaTime);
 		}
 	}

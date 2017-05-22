@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDash : MonoBehaviour {
+    public RawImage icon;
+    public Text cooldownText;
     public static bool isDashing = false;
     public string dash;
     public float dashSpeed = 2.0f;
@@ -23,6 +26,7 @@ public class EnemyDash : MonoBehaviour {
     {
         enemyScript = GetComponent<Enemy>();
         body = GetComponent<Transform>();
+        cooldownText.text = cooldown.ToString();
     }
 	
 	void FixedUpdate ()
@@ -55,6 +59,7 @@ public class EnemyDash : MonoBehaviour {
                 cooldownTimer = cooldown;
                 skillIsOnCooldown = false;
             }
+            cooldownText.text = cooldownTimer.ToString("F2");
         }
     }
 
