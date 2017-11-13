@@ -1,6 +1,5 @@
-# GameProg2017
-Curse of the Pharaoh
-(4-to-1 Boss fight in a maze)
+# GameProg2017 Curse of the Pharaoh
+Curse of the Pharaoh is a 4-to-1 players survival battle in a maze
 
 1. The executable file is located in "PlayEXEGameHere" folder
 2. This game requires 2 displays to play (1 for 4 players and 1 for the boss)
