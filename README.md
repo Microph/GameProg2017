@@ -1,8 +1,9 @@
 # GameProg2017 Curse of the Pharaoh
 Curse of the Pharaoh is a 4-to-1 players survival battle in a maze
 
-4-players side wins when they manage to collect holy water from any fountains inside the maze and shoot the Pharaoh until it dies
-Pharaoh side wins when he kills all 4 players
+- 4-players side wins when they manage to collect holy water from any fountains inside the maze and shoot the Pharaoh until it dies
+
+- Pharaoh side wins when he kills all 4 players
 
 1. The executable file is located in "PlayEXEGameHere" folder
 2. This game requires 2 displays to play (one for 4 players and one for the boss), a keyboard and a joyPad
