@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Heal : MonoBehaviour {
     public Collider2D healRange;
     public AudioClip skillSound;
     public AudioSource sfxSource;
+    public SpriteRenderer halo;
 
     Player player;
 
@@ -17,10 +19,9 @@ public class Heal : MonoBehaviour {
     IEnumerator Halo()
     {
         player.enabled = false;
-        Component halo = healRange.GetComponent("Halo");
-        halo.GetType().GetProperty("enabled").SetValue(halo, true, null);
+        halo.enabled = true;
         yield return new WaitForSeconds(0.5f);
-        halo.GetType().GetProperty("enabled").SetValue(halo, false, null);
+        halo.enabled = false;
         player.enabled = true;
     }
 
